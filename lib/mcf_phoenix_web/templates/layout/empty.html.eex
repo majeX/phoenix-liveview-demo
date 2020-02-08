@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>McfPhoenix · Phoenix Framework</title>
+    <link rel="stylesheet" href="<%= Routes.static_path(@conn, "/css/app.css") %>"/>
+</head>
+
+<body>
+    <main role="main">
+        <p class="alert alert-info" role="alert">
+            <%= get_flash(@conn, :info) %>
+        </p>
+        <p class="alert alert-danger" role="alert">
+            <%= get_flash(@conn, :error) %>
+        </p>
+        <div class="sc-EHOje kwcNji">
+            <div class="sc-bwzfXH eUThqt">
+                <div>
+                    <a href="/"><img src="data:image/png;base64,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" alt="Logo" class="sc-htpNat daVAfG"></a>
+                </div>
+                <div>
+                    <h1 class="sc-ifAKCX hmiiKz">Supervisor App</h1></div>
+                <div class="sc-bxivhb hjzhOR">
+                    <button class="sc-bdVaJa fMPlDc">Sign out</button>
+                </div>
+            </div>
+            <div class="sc-bZQynM dquiGX">
+                <div class="sc-gzVnrw guuQVD">
+                    <%= render @view_module, @view_template, assigns %>
+                </div>
+            </div>
+        </div>
+    </main>
+    <%= csrf_meta_tag() %>
+        <script type="text/javascript" src="<%= Routes.static_path(@conn, "/js/app.js") %>"></script>
+</body>
+
+</html>

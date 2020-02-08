@@ -1,0 +1,16 @@
+<div class="thermostat">
+  <div>Hello! <%= @val %> <%= @tick %> </div>
+  <button phx-click="load">Load</button>
+  <div>Users count: <%= length(@users) %></div>
+
+  <div>
+    Bins:
+    <ul>
+      <%= for user <- @users do %>
+        <li>
+          <%= user["firstName"] %> <%= user["lastName"] %>
+        </li>
+      <% end %>
+    </ul>
+  </div>
+</div>

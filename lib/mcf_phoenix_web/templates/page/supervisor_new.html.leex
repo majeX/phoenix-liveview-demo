@@ -1,0 +1,49 @@
+<div class="sc-hSdWYo gRjfii">
+    <div class="sc-VigVT kkXjov">
+        <div class="sc-jTzLTM haSJTH">Dashboard</div>
+        <div class="sc-jTzLTM bjUPid">Work Centers</div>
+        <div class="sc-jTzLTM bjUPid">
+            <div>Work Orders (2)</div>
+        </div>
+    </div>
+    <div class="sc-gqjmRU iFGUsa">
+        <div>
+            <div>
+                <h3>Filters</h3>
+                <div class="sc-jKJlTe bcMWMl">
+                    <div>
+                        <select multiple="" name="workOrderId" class="sc-dxgOiQ gYrlWm" >
+                            <option value="all" class="sc-ckVGcZ hJvpxO">All work orders</option>
+                            <option value="1" class="sc-ckVGcZ hJvpxO">A sample WO</option>
+                            <option value="2" class="sc-ckVGcZ hJvpxO">Demo Work Order</option>
+                        </select>
+                    </div>
+                    <div>
+                        <select multiple="" name="plantId" class="sc-dxgOiQ gYrlWm">
+                            <option value="all" class="sc-ckVGcZ hJvpxO">All plants</option>
+                            <option value="1" class="sc-ckVGcZ hJvpxO">HF Plant</option>
+                            <option value="2" class="sc-ckVGcZ hJvpxO">M1 Plant</option>
+                            <option value="3" class="sc-ckVGcZ hJvpxO">ES Plant</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="sc-gqjmRU fieusk">
+                <div>
+                    <h3>Bins (<%= length(@bins) %>)</h3>
+                    <%= for bin <- @bins do %>
+                      <%= render "bin.html", bin: bin %>
+                    <% end %>
+                </div>
+                <div>
+                    <h3>Move Tickets (<%= length(@move_tickets) %>)</h3>
+                    <%= for move_ticket <- @move_tickets do %>
+                      <%= render "move_ticket.html", move_ticket: move_ticket %>
+                    <% end %>
+                </div>
+                <div>
+                    <h3>Cross Plant Tickets (0)</h3></div>
+            </div>
+        </div>
+    </div>
+</div>
