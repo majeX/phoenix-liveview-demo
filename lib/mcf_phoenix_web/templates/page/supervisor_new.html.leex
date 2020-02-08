@@ -12,11 +12,15 @@
                 <h3>Filters</h3>
                 <div class="sc-jKJlTe bcMWMl">
                     <div>
-                        <select multiple="" name="workOrderId" class="sc-dxgOiQ gYrlWm" >
-                            <option value="all" class="sc-ckVGcZ hJvpxO">All work orders</option>
-                            <option value="1" class="sc-ckVGcZ hJvpxO">A sample WO</option>
-                            <option value="2" class="sc-ckVGcZ hJvpxO">Demo Work Order</option>
-                        </select>
+                        <%= f = form_for :filter_work_orders, "#", [phx_change: :change_filter] %>
+                            <%=
+                              multiple_select f,
+                                :work_orders,
+                                get_work_orders_options(@work_orders),
+                                class: "sc-dxgOiQ gYrlWm",
+                                selected: @filters.work_orders
+                            %>
+                        </form>
                     </div>
                     <div>
                         <select multiple="" name="plantId" class="sc-dxgOiQ gYrlWm">
@@ -30,19 +34,26 @@
             </div>
             <div class="sc-gqjmRU fieusk">
                 <div>
-                    <h3>Bins (<%= length(@bins) %>)</h3>
-                    <%= for bin <- @bins do %>
+                    <% bins = get_bins(@bins, @filters) %>
+                    <h3>Bins (<%= length(bins) %>)</h3>
+                    <%= for bin <- bins do %>
                       <%= render "bin.html", bin: bin %>
                     <% end %>
                 </div>
                 <div>
-                    <h3>Move Tickets (<%= length(@move_tickets) %>)</h3>
-                    <%= for move_ticket <- @move_tickets do %>
+                    <% move_tickets = get_move_tickets(@move_tickets, "INSIDE_PLANT", @filters) %>
+                    <h3>Move Tickets (<%= length(move_tickets) %>)</h3>
+                    <%= for move_ticket <- move_tickets do %>
                       <%= render "move_ticket.html", move_ticket: move_ticket %>
                     <% end %>
                 </div>
                 <div>
-                    <h3>Cross Plant Tickets (0)</h3></div>
+                    <% cp_tickets = get_move_tickets(@move_tickets, "CROSS_PLANT", @filters) %>
+                    <h3>Cross Plant Tickets (<%= length(cp_tickets) %>)</h3>
+                    <%= for move_ticket <- cp_tickets do %>
+                      <%= render "move_ticket.html", move_ticket: move_ticket %>
+                    <% end %>
+                </div>
             </div>
         </div>
     </div>

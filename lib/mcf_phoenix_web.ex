@@ -43,6 +43,7 @@ defmodule McfPhoenixWeb do
       import McfPhoenixWeb.ErrorHelpers
       import McfPhoenixWeb.Gettext
       alias McfPhoenixWeb.Router.Helpers, as: Routes
+      require Logger
       import Phoenix.LiveView.Helpers
     end
   end

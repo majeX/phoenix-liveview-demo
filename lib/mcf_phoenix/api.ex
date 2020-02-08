@@ -5,7 +5,8 @@ defmodule McfPhoenix.Api do
 
   def bins do
     url = "http://localhost:8080/api/v1/bins"
-    do_request url
+    do_request(url)
+    |> Enum.filter(fn bin -> bin["type"] !== "FORK" end)
   end
 
   def move_tickets do

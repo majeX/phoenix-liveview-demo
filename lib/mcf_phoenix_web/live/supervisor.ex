@@ -12,21 +12,14 @@ defmodule McfPhoenixWeb.SupervisorLive do
     %{ bins: bins, move_tickets: move_tickets, work_orders: work_orders } = get_poll_items()
     %{ plants: plants, users: users } = get_permanent_items()
 
-    filter_changeset = get_filter_changeset()
-
+    initial_filters = %Filters{}
     initial_state = %{
       bins: bins,
       move_tickets: move_tickets,
       work_orders: work_orders,
       plants: plants,
       users: users,
-      filters: %{
-        work_order: ["all"],
-        plant: ["all"]
-      },
-      filters_changeset: %{
-
-      }
+      filters: %Filters{},
     }
     {:ok, assign(socket, initial_state)}
   end
@@ -37,12 +30,15 @@ defmodule McfPhoenixWeb.SupervisorLive do
     {:noreply, assign(socket, items)}
   end
 
-  def handle_event("load", _, socket) do
-    url = "http://localhost:8080/api/v1/users"
-    response = HTTPoison.get!(url)
-    req = Poison.decode!(response.body)
-    Logger.debug req
-    {:noreply, assign(socket, users: req)}
+  def handle_event("change_filter", %{"filter_work_orders" => %{ "work_orders" => selected_work_orders }} = params, socket) do
+    new_filters = %Filters{ socket.assigns.filters | work_orders: selected_work_orders }
+    {
+      :noreply,
+      assign(
+        socket,
+        filters: new_filters
+      )
+    }
   end
 
   defp get_poll_items do
@@ -56,9 +52,5 @@ defmodule McfPhoenixWeb.SupervisorLive do
     plants = Api.plants()
     users = Api.users()
     %{ plants: plants, users: users }
-  end
-
-  defp get_filter_changeset do
-    filters = %Filters{}
   end
 end
