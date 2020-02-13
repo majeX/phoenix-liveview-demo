@@ -1,16 +1,61 @@
-<div class="thermostat">
-  <div>Hello! <%= @val %> <%= @tick %> </div>
-  <button phx-click="load">Load</button>
-  <div>Users count: <%= length(@users) %></div>
-
-  <div>
-    Bins:
-    <ul>
-      <%= for user <- @users do %>
-        <li>
-          <%= user["firstName"] %> <%= user["lastName"] %>
-        </li>
-      <% end %>
-    </ul>
-  </div>
+<div class="sc-hSdWYo gRjfii">
+    <div class="sc-VigVT kkXjov">
+        <div class="sc-jTzLTM haSJTH">Dashboard</div>
+        <div class="sc-jTzLTM bjUPid">Work Centers</div>
+        <div class="sc-jTzLTM bjUPid">
+            <div>Work Orders (2)</div>
+        </div>
+    </div>
+    <div class="sc-gqjmRU iFGUsa">
+        <div>
+            <div>
+                <h3>Filters</h3>
+                <div class="sc-jKJlTe bcMWMl">
+                    <div>
+                        <%= live_component(
+                          @socket,
+                          McfPhoenixWeb.Components.MultiSelectComponent,
+                          id: :work_orders,
+                          options: get_work_orders_options(@work_orders),
+                          selected: @filters.work_orders
+                        )
+                        %>
+                    </div>
+                    <div>
+                        <%= live_component(
+                          @socket,
+                          McfPhoenixWeb.Components.MultiSelectComponent,
+                          id: :plants,
+                          options: get_plants_options(@plants),
+                          selected: @filters.plants
+                        )
+                        %>
+                    </div>
+                </div>
+            </div>
+            <div class="sc-gqjmRU fieusk">
+                <div>
+                    <% bins = get_bins(@bins, @filters) %>
+                    <h3>Bins (<%= length(bins) %>)</h3>
+                    <%= for bin <- bins do %>
+                      <%= render "bin.html", bin: bin, plants: @plants %>
+                    <% end %>
+                </div>
+                <div>
+                    <% move_tickets = get_move_tickets(@move_tickets, "INSIDE_PLANT", @filters) %>
+                    <h3>Move Tickets (<%= length(move_tickets) %>)</h3>
+                    <%= for move_ticket <- move_tickets do %>
+                      <%= render "move_ticket.html", move_ticket: move_ticket, plants: @plants %>
+                    <% end %>
+                </div>
+                <div>
+                    <% cp_tickets = get_move_tickets(@move_tickets, "CROSS_PLANT", @filters) %>
+                    <h3>Cross Plant Tickets (<%= length(cp_tickets) %>)</h3>
+                    <%= for move_ticket <- cp_tickets do %>
+                      <%= render "move_ticket.html", move_ticket: move_ticket, plants: @plants %>
+                    <% end %>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>

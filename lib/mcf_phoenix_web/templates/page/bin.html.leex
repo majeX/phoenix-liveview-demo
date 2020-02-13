@@ -1,5 +1,5 @@
 <div class="sc-jzJRlG dIFhUP">
-    <div><strong>Plant:</strong> ES Plant</div>
+    <div><strong>Plant:</strong> <%= get_plant(@bin, @plants) %></div>
     <div><strong>Bin ID:</strong> <%= @bin["id"] %></div>
     <div><strong>Current Location:</strong> <%= get_location_name(@bin["currentLocation"]) %></div>
     <div><strong>Next Location:</strong> <%= get_location_name(@bin["proposedLocation"]) %></div>

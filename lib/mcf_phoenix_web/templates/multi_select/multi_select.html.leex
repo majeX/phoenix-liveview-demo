@@ -1,0 +1,9 @@
+<%= f = form_for @id, "#", [phx_change: :change_filter, phx_target: "#multi-select-#{@id}", id: "multi-select-#{@id}"] %>
+    <%=
+      multiple_select f,
+        :selected,
+        @options,
+        class: "sc-dxgOiQ gYrlWm",
+        selected: @selected
+    %>
+</form>

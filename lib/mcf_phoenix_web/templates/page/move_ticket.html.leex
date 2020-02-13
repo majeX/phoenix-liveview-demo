@@ -1,10 +1,10 @@
 <div class="sc-jzJRlG dIFhUP">
-    <div><strong>Plant: </strong> ES Plant</div>
-    <div><strong>ID:</strong> 19</div>
-    <div><strong>Bin ID:</strong> 4</div>
-    <div><strong>From:</strong> 11-182LN603 Output</div>
-    <div><strong>To:</strong> 11-178PTFE Staging</div>
-    <div><strong>Status:</strong> CREATED</div>
+    <div><strong>Plant: </strong> <%= get_plant(@move_ticket, @plants) %></div>
+    <div><strong>ID:</strong> <%= @move_ticket["id"] %></div>
+    <div><strong>Bin ID:</strong> <%= @move_ticket["binId"] %></div>
+    <div><strong>From:</strong> <%= @move_ticket["sourceLocation"]["name"] %></div>
+    <div><strong>To:</strong> <%= @move_ticket["destinationLocation"]["name"] %></div>
+    <div><strong>Status:</strong> <%= @move_ticket["status"] %></div>
     <div><strong>Priority:</strong>
         <select >
             <option value="5">Urgent</option>
